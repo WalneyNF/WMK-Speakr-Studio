@@ -1,8 +1,8 @@
 {
-  "id": "com.speakr.app",
-  "name": "Speakr",
-  "short_name": "Speakr",
-  "description": "Speakr - Audio transcription and summarization",
+  "id": "com.wmk.speakr.studio",
+  "name": "WMK Speakr Studio",
+  "short_name": "WMK Speakr",
+  "description": "WMK Speakr Studio — transcrição e inteligência de áudio",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -10,10 +10,20 @@
   "theme_color": "#000000",
   "orientation": "any",
   "prefer_related_applications": false,
-  "categories": ["productivity", "utilities", "business"],
-  "lang": "en",
+  "categories": [
+    "productivity",
+    "utilities",
+    "business"
+  ],
+  "lang": "pt-BR",
   "dir": "ltr",
   "icons": [
+    {
+      "src": "/static/img/wmk-speakr-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
     {
       "src": "/static/img/icon-192x192.png",
       "sizes": "192x192",
@@ -75,14 +85,24 @@
       "short_name": "New",
       "description": "Upload or record new audio",
       "url": "/#upload",
-      "icons": [{ "src": "/static/img/icon-192x192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "/static/img/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "View Gallery",
       "short_name": "Gallery",
       "description": "Access your recordings gallery",
       "url": "/#gallery",
-      "icons": [{ "src": "/static/img/icon-192x192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "/static/img/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ],
   "share_target": {
@@ -96,7 +116,13 @@
       "files": [
         {
           "name": "shared_audio",
-          "accept": ["audio/*", "video/mp4", "video/quicktime", "video/x-matroska", "video/webm"]
+          "accept": [
+            "audio/*",
+            "video/mp4",
+            "video/quicktime",
+            "video/x-matroska",
+            "video/webm"
+          ]
         }
       ]
     }
@@ -108,7 +134,18 @@
     {
       "action": "/",
       "accept": {
-        "audio/*": [".mp3", ".wav", ".m4a", ".ogg", ".webm", ".weba", ".flac", ".aac", ".wma", ".opus"]
+        "audio/*": [
+          ".mp3",
+          ".wav",
+          ".m4a",
+          ".ogg",
+          ".webm",
+          ".weba",
+          ".flac",
+          ".aac",
+          ".wma",
+          ".opus"
+        ]
       }
     }
   ],
