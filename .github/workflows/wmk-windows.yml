@@ -1,0 +1,86 @@
+name: WMK Windows - Compilar executavel e ZIP
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - 'src/**'
+      - 'static/**'
+      - 'templates/**'
+      - 'scripts/**'
+      - 'wmk_windows.py'
+      - 'requirements.txt'
+      - 'VERSION'
+      - '.github/workflows/wmk-windows.yml'
+permissions:
+  contents: read
+jobs:
+  windows-package:
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+      - name: Instalar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          architecture: 'x64'
+          cache: 'pip'
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar bibliotecas Windows
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          python scripts/windows_deps.py
+          python -m pip install "pyinstaller>=6.11,<7"
+      - name: Baixar dependencias web
+        shell: pwsh
+        run: |
+          python scripts/download_offline_deps.py
+          if ($LASTEXITCODE -ne 0) { throw "Falha no download de recursos" }
+      - name: Compilar CSS
+        shell: pwsh
+        run: |
+          npx --yes --package=tailwindcss@3.4.19 tailwindcss -c tailwind.config.js -i static/css/tailwind.input.css -o static/css/tailwind.css --minify
+          if ($LASTEXITCODE -ne 0) { throw "Falha no Tailwind" }
+      - name: Validar inicializacao nativa
+        shell: pwsh
+        run: |
+          python wmk_windows.py --check
+          if ($LASTEXITCODE -ne 0) { throw "Falha no smoke test" }
+      - name: Empacotar com PyInstaller
+        shell: pwsh
+        run: |
+          python -m PyInstaller --noconfirm --clean --onedir --console --name WMK-Speakr-Studio --collect-submodules src --collect-submodules scripts --collect-all babel --collect-all flask --add-data "templates;templates" --add-data "static;static" --add-data "VERSION;." wmk_windows.py
+          if ($LASTEXITCODE -ne 0) { throw "Falha no PyInstaller" }
+      - name: Preparar pacote portatil
+        shell: pwsh
+        run: |
+          Copy-Item LICENSE dist/WMK-Speakr-Studio/LICENSE
+          Copy-Item docs/WMK-WINDOWS-ACTIONS.md dist/WMK-Speakr-Studio/LEIA-ME-WINDOWS.md
+          '@echo off' | Set-Content -Encoding ASCII dist/WMK-Speakr-Studio/Criar-Admin.cmd
+          'cd /d "%~dp0"' | Add-Content -Encoding ASCII dist/WMK-Speakr-Studio/Criar-Admin.cmd
+          '"WMK-Speakr-Studio.exe" --admin' | Add-Content -Encoding ASCII dist/WMK-Speakr-Studio/Criar-Admin.cmd
+          'pause' | Add-Content -Encoding ASCII dist/WMK-Speakr-Studio/Criar-Admin.cmd
+          '@echo off' | Set-Content -Encoding ASCII dist/WMK-Speakr-Studio/Iniciar-WMK.cmd
+          'cd /d "%~dp0"' | Add-Content -Encoding ASCII dist/WMK-Speakr-Studio/Iniciar-WMK.cmd
+          '"WMK-Speakr-Studio.exe"' | Add-Content -Encoding ASCII dist/WMK-Speakr-Studio/Iniciar-WMK.cmd
+          'if errorlevel 1 pause' | Add-Content -Encoding ASCII dist/WMK-Speakr-Studio/Iniciar-WMK.cmd
+          '@echo off' | Set-Content -Encoding ASCII dist/WMK-Speakr-Studio/Diagnostico.cmd
+          'cd /d "%~dp0"' | Add-Content -Encoding ASCII dist/WMK-Speakr-Studio/Diagnostico.cmd
+          '"WMK-Speakr-Studio.exe" --check' | Add-Content -Encoding ASCII dist/WMK-Speakr-Studio/Diagnostico.cmd
+          'pause' | Add-Content -Encoding ASCII dist/WMK-Speakr-Studio/Diagnostico.cmd
+          & dist/WMK-Speakr-Studio/WMK-Speakr-Studio.exe --check
+          if ($LASTEXITCODE -ne 0) { throw "Executavel compilado falhou no smoke test" }
+          Compress-Archive -Path dist/WMK-Speakr-Studio -DestinationPath dist/WMK-Speakr-Studio-Windows-x64.zip -Force
+      - name: Publicar ZIP como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: WMK-Speakr-Studio-Windows-x64
+          path: dist/WMK-Speakr-Studio-Windows-x64.zip
+          retention-days: 30
+          if-no-files-found: error
