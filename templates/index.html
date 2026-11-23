@@ -60,7 +60,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="app-version" content="{{ app_version }}">
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
-    <title>Speakr</title>
+    <title>WMK Speakr Studio</title>
     <!-- All dependencies bundled locally for offline support -->
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/css/easymde.min.css', v=app_version) }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='vendor/css/fontawesome.min.css', v=app_version) }}">
@@ -70,7 +70,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/phone.css', v=app_version) }}">
     <!-- The processing queue: the indicator and the panel -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/queue.css', v=app_version) }}">
-    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/wmk-speakr-logo.svg') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/icon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/icon-16x16.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/icon-180x180.png') }}">
