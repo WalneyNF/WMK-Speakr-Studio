@@ -1,3 +1,5 @@
+> **Atualização:** o procedimento principal agora é [WMK-WINDOWS-ACTIONS.md](WMK-WINDOWS-ACTIONS.md), com instalação por CMD, compilação PyInstaller e GitHub Actions. O guia abaixo é histórico e pode citar scripts anteriores.
+
 # WMK Speakr Studio — Windows sem Docker
 
 Este procedimento usa **Python 3.11 x64**, ambiente virtual, SQLite, Flask e Tailwind CSS, diretamente no Windows. **Não usa Docker, WSL nem XAMPP**.
