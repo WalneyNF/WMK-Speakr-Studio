@@ -421,9 +421,12 @@ def enrich_recording_dict_with_user_status(recording_dict, recording, user):
     return recording_dict
 
 
-app = Flask(__name__, 
-            template_folder='../templates',
-            static_folder='../static')
+# PyInstaller extrai os recursos em sys._MEIPASS; no codigo-fonte preservamos
+# os caminhos originais. Nao alterar caminhos de usuarios nem dados gravados.
+_wmk_bundle_dir = getattr(sys, '_MEIPASS', None)
+app = Flask(__name__,
+            template_folder=os.path.join(_wmk_bundle_dir, 'templates') if _wmk_bundle_dir else '../templates',
+            static_folder=os.path.join(_wmk_bundle_dir, 'static') if _wmk_bundle_dir else '../static')
 # Use environment variables or default paths for Docker compatibility
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI', 'sqlite:////data/instance/transcriptions.db')
 app.config['UPLOAD_FOLDER'] = os.environ.get('UPLOAD_FOLDER', '/data/uploads')
