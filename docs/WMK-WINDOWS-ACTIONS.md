@@ -41,6 +41,18 @@ cd WMK-Speakr-Studio
 
 Se o clone ja existir, use git pull na pasta do projeto.
 
+## Compilacao local em Windows
+
+Depois de executar Instalar-WMK.cmd e preparar o ambiente, rode **Compilar-Windows-WMK.cmd** na pasta do projeto. O script usa PyInstaller, executa o diagnostico basico e cria:
+
+- dist/WMK-Speakr-Studio/WMK-Speakr-Studio.exe
+- dist/WMK-Speakr-Studio/Diagnostico.cmd
+- dist/WMK-Speakr-Studio/Criar-Admin.cmd
+- dist/WMK-Speakr-Studio/Iniciar-WMK.cmd
+- dist/WMK-Speakr-Studio-Windows-x64.zip
+
+Se a compilacao falhar, leia a mensagem do PowerShell. O instalador nao apaga gravacoes nem substitui uma configuracao .env privada.
+
 ## Dados e configuracoes
 
 O inicializador nativo utiliza **dados/instance/transcriptions.db** e **dados/uploads/**. A variavel WMK_DATA_DIR escolhe outro local. Um arquivo .env na pasta raiz permite configurar modelos, chaves e caminho dos dados.
