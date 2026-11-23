@@ -1,4 +1,22 @@
 <div align="center">
+  <img src="static/img/wmk-speakr-logo.svg" alt="WMK Speakr Studio — marca WMK" width="720">
+  <h1>WMK Speakr Studio</h1>
+  <p>Plataforma de transcrição, anotações e pesquisa inteligente de áudios — edição WMK.</p>
+  <p><strong>Personalização:</strong> Walney Moreira Klein — <a href="mailto:walneyk@hotmail.com">walneyk@hotmail.com</a></p>
+</div>
+
+> **Licenciamento:** este fork preserva a licença **GNU AGPL v3** do Speakr original. A autoria original pertence a seus respectivos titulares. Este fork não é MIT.
+
+## Documentação em português
+
+- [Guia e melhorias WMK](docs/WMK-PRIMEIROS-PASSOS.md)
+- [Projeto original](https://github.com/murtaza-nasir/speakr)
+
+---
+
+<details><summary>README original (inglês)</summary>
+
+<div align="center">
     <img src="static/img/icon-32x32.png" alt="Speakr Logo" width="32"/>
 </div>
 
@@ -349,3 +367,5 @@ By submitting a pull request, you agree to our [Contributor License Agreement (C
 - Step-by-step contribution process
 - Development setup instructions
 - Coding standards and best practices
+
+</details>
