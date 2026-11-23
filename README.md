@@ -9,7 +9,9 @@
 
 ## Documentação em português
 
-- [Guia e melhorias WMK](docs/WMK-PRIMEIROS-PASSOS.md)
+- [Instalação e compilação Windows pelo GitHub Actions](docs/WMK-WINDOWS-ACTIONS.md)
+- [Guia anterior e apresentação WMK](docs/WMK-PRIMEIROS-PASSOS.md)
+- [Download de compilações Windows (Actions)](https://github.com/WalneyNF/WMK-Speakr-Studio/actions/workflows/wmk-windows.yml)
 - [Projeto original](https://github.com/murtaza-nasir/speakr)
 
 ---
